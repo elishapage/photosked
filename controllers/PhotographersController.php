@@ -8,6 +8,8 @@ use app\models\PhotographersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 
 /**
  * PhotographersController implements the CRUD actions for Photographers model.
@@ -20,6 +22,17 @@ class PhotographersController extends Controller
     public function behaviors()
     {
         return [
+            'access'=>[
+                'class'=>AccessControl::classname(),
+                'only'=>['create','update', 'delete'],
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'roles'=>['@']
+                    ],
+                    ]
+                ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
